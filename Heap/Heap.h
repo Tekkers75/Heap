@@ -3,9 +3,9 @@ template <typename T>
 class Heap
 {
 private:
-	T* heapArray;
-	int arraySize;
-	int heapSize;
+	T* heapArray;       // указатель на массив
+	int arraySize;      // максимальная емкость кучи
+	int heapSize;       // текущий размер кучи
 
     //Восстановления свойств кучи после вставки элемента. 
     void HeapifyUp(int index) {
@@ -66,7 +66,6 @@ public:
         // Проверка, чтобы убедиться, что куча не достигла своей максимальной емкости.
         if (heapSize == arraySize)
             throw std::out_of_range("Heap is full");
-
         // Помещаем новый элемент в конец кучи
         heapArray[heapSize] = item;
         // Вызываем HeapifyUp для восстановления свойств кучи
