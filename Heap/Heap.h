@@ -7,28 +7,43 @@ private:
 	int arraySize;
 	int heapSize;
 
+    //Восстановления свойств кучи после вставки элемента. 
     void HeapifyUp(int index) {
+        // Если текущий индекс указывает на корневой элемент,
+        // то достигнута вершина кучи, и завершаем рекурсию.
         if (index == 0)
             return;
-
+        // Вычисляем индекс родительского элемента.
         int parent = (index - 1) / 2;
+        // Если значение родительского элемента меньше значения текущего элемента,
+        // то меняем их местами.
         if (heapArray[parent] < heapArray[index]) {
             std::swap(heapArray[parent], heapArray[index]);
+        // Рекурсивно вызываем HeapifyUp для родительского элемента,
+        // чтобы проверить и восстановить свойства кучи выше.
             HeapifyUp(parent);
         }
     }
 
+    //Восстановления свойств кучи после удаления максимального элемента 
+    // или изменения значения элемента.
     void HeapifyDown(int index) {
+        // Вычисляем индексы левого и правого дочерних элементов.
         int leftChild = 2 * index + 1;
         int rightChild = 2 * index + 2;
+        // Предполагаем, что текущий индекс содержит наибольший элемент.
         int largest = index;
 
+        // Проверяем, является ли левый дочерний элемент больше текущего наибольшего элемента.
+        // Если да, то обновляем индекс наибольшего элемента.
         if (leftChild < heapSize && heapArray[leftChild] > heapArray[largest])
             largest = leftChild;
-
+        // Проверяем, является ли правый дочерний элемент больше текущего наибольшего элемента.
+        // Если да, то обновляем индекс наибольшего элемента.
         if (rightChild < heapSize && heapArray[rightChild] > heapArray[largest])
             largest = rightChild;
-
+        // Если наибольший элемент не является текущим элементом,
+        // то меняем их местами и рекурсивно вызываем HeapifyDown для наибольшего элемента.
         if (largest != index) {
             std::swap(heapArray[index], heapArray[largest]);
             HeapifyDown(largest);
@@ -36,35 +51,44 @@ private:
     }
 
 public:
+    // Конструктор класса куча
     Heap(int capacity) : heapSize(0), arraySize(capacity) {
         heapArray = new T[arraySize];
     }
 
+    // Деструктор класса куча
     ~Heap() {
         delete[] heapArray;
     }
 
     // Метод для добавления элемента в кучу
     void Insert(const T& item) {
+        // Проверка, чтобы убедиться, что куча не достигла своей максимальной емкости.
         if (heapSize == arraySize)
             throw std::out_of_range("Heap is full");
 
+        // Помещаем новый элемент в конец кучи
         heapArray[heapSize] = item;
+        // Вызываем HeapifyUp для восстановления свойств кучи
         HeapifyUp(heapSize);
+        // Увеличиваем размер кучи
         heapSize++;
     }
 
     // Метод для удаления и возвращения максимального элемента из кучи
     T ExtractMax() {
+        // Проверка, чтобы убедиться, что куча не достигла своей максимальной емкости.
         if (heapSize == 0)
             throw std::out_of_range("Heap is empty");
-
+        // Сохраняем текущий максимальный элемент
         T maxElement = heapArray[0];
+        // Заменяем корень кучи последним элементом
         heapArray[0] = heapArray[heapSize - 1];
+        // Уменьшаем размер кучи
         heapSize--;
-
+        // Вызываем HeapifyDown для восстановления свойств кучи
         HeapifyDown(0);
-
+        // Возвращаем сохраненный максимальный элемент
         return maxElement;
     }
 
