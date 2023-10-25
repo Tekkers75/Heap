@@ -2,6 +2,7 @@
 #include "Heap.h"
 #include <algorithm>
 #include <vector>
+#include "Test.h"
 
 int main() {
     Heap<int> heap(10);
@@ -44,6 +45,18 @@ int main() {
     // 9 5 4 1 2 3
 
     std::cout << "is_heap: " << is_heap(v.begin(), v.end());
+
+    TestConstructor();
+    TestInsert();
+    TestExtractMax();
+    TestSize();
+    TestIsEmpty();
+
+
+
+
+
+
 
     return 0;
 }
