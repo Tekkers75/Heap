@@ -13,6 +13,14 @@ int main() {
     heap.Insert(2);
     heap.Insert(4);
     heap.Insert(12);
+    heap.Insert(1);
+
+
+    //            12
+    //    7               5
+    //4       3       2       1
+
+    //12 7 5 4 3 2 1
 
     std::cout << "Heap size: " << heap.Size() << std::endl;
 
@@ -45,6 +53,7 @@ int main() {
     // 9 5 4 1 2 3
 
     std::cout << "is_heap: " << is_heap(v.begin(), v.end());
+    std::cout << std::endl;
 
     TestConstructor();
     TestInsert();
