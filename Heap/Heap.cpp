@@ -1,11 +1,12 @@
-﻿#include <iostream>
+﻿//@author Саранчин К.А.
+#include <iostream>
 #include "Heap.h"
 #include <algorithm>
 #include <vector>
 #include "Test.h"
 
 int main() {
-    Heap<int> heap(10);
+    Heap<int> heap(5);
 
     heap.Insert(5);
     heap.Insert(3);
@@ -14,25 +15,43 @@ int main() {
     heap.Insert(4);
     heap.Insert(12);
     heap.Insert(1);
+    heap.deleteNode(4);
+    heap.deleteNode(12);
+    heap.Insert(6);
 
 
-    //            12
-    //    7               5
-    //4       3       2       1
 
-    //12 7 5 4 3 2 1
+        //            12
+        //    7               5
+        //4       3       2       1
+
+        //12 7 5 4 3 2 1
+
+        //            7
+        //    6               5
+        //3       2       1
+
+    heap.Search(12);
+    heap.Search(6);
+
 
     std::cout << "Heap size: " << heap.Size() << std::endl;
+    heap.print();
+
+ 
+
+
 
     while (!heap.IsEmpty()) {
         int maxElement = heap.ExtractMax();
         std::cout << maxElement << " ";
     }
 
+
     std::cout << std::endl;
 
 
-    std::vector<int> v{ 3, 2, 4, 1, 5, 9 };
+    std::vector<int> v{/* 3, 2, 4, 1, 5, 9*/ 3, 5, 1, 2, 12, 6, 7, 4 };
     int* arr = new int[10]{ 3, 2, 4, 1, 5, 9 };
 
 
@@ -60,9 +79,12 @@ int main() {
     TestExtractMax();
     TestSize();
     TestIsEmpty();
+    TestDelete();
+    TestSearch();
+    TestDelete2();
 
 
-
+    
 
 
 
