@@ -38,14 +38,19 @@ int main() {
     std::cout << "Heap size: " << heap.Size() << std::endl;
     heap.print();
 
- 
 
+    //std::cout << "Sort" << std::endl;
+    //heap.TournamentSort();
+    //heap.print();
+    //std::cout << "Sort" << std::endl;
 
 
     while (!heap.IsEmpty()) {
         int maxElement = heap.ExtractMax();
         std::cout << maxElement << " ";
     }
+
+    
 
 
     std::cout << std::endl;
@@ -83,8 +88,17 @@ int main() {
     TestSearch();
     TestDelete2();
 
-
-    
+   
+    heap.InsertOld(5);
+    heap.InsertOld(3);
+    heap.InsertOld(7);
+    heap.InsertOld(2);
+    heap.InsertOld(4);
+    heap.InsertOld(12);
+    heap.InsertOld(1);
+    heap.TournamentSort();
+    std::cout << "sort tour \n";
+    heap.print();
 
 
 

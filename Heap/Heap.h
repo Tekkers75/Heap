@@ -1,5 +1,9 @@
 //@author Саранчин К.А.
 #pragma once
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 // Класс куча max
 template <typename T>
 class Heap
@@ -204,4 +208,26 @@ public:
         return false; // Элемент не найден
     }
 
+    // Метод для выполнения турнирной сортировки элементов в куче
+    void TournamentSort()
+    {
+        // Создаем временную кучу для выполнения сортировки
+        Heap<T> tempHeap(heapSize);
+
+        // Постепенно извлекаем максимальные элементы из текущей кучи
+        // и вставляем их во временную кучу, пока текущая куча не станет пустой
+        while (!IsEmpty())
+        {
+            T maxElement = ExtractMax();
+            tempHeap.InsertOld(maxElement);
+        }
+
+        // Заменяем текущую кучу отсортированными элементами из временной кучи
+        delete[] heapArray;
+        heapArray = tempHeap.heapArray;
+        heapSize = tempHeap.heapSize;
+        arraySize = tempHeap.arraySize;
+        tempHeap.heapArray = nullptr; // Устанавливаем указатель временной кучи в nullptr,
+        // чтобы не освободить память дважды в ее деструкторе
+    }
 };
